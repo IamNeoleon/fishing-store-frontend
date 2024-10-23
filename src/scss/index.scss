@@ -1,3 +1,5 @@
+@use 'vars' as *;
+
 *,
 *::before,
 *::after {
@@ -11,6 +13,7 @@ body {
 	font-weight: 400;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
+	background-color: $background-color;
 }
 
 a {
@@ -27,4 +30,26 @@ h6 {
 	margin: 0;
 	padding: 0;
 	font-weight: normal;
+}
+
+// AuthPage
+
+.auth {}
+
+.auth__inner {
+	display: flex;
+	min-height: 100vh;
+	justify-content: center;
+	align-items: center;
+
+	.btn {
+		background-color: #005B45;
+		color: #fff;
+		padding: 10px 15px;
+		font-size: 16px;
+		font-weight: 600;
+		border: 1px solid #fff;
+		border: none;
+		cursor: pointer;
+	}
 }
