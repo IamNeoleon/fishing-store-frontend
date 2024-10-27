@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import AuthBlock from '../components/AuthBlock/AuthBlock';
+import RegisterBlock from '../components/RegisterBlock/RegisterBlock';
+import { useAppDispatch } from '../hooks';
 
 interface IAuthProps { }
 
 const Auth: React.FC = () => {
+	const [isHaveAcc, setIsHaveAcc] = useState<boolean>(true);
 
 
 	return (
@@ -11,7 +14,11 @@ const Auth: React.FC = () => {
 			<div className="auth">
 				<div className="container">
 					<div className="auth__inner">
-						<AuthBlock />
+						{isHaveAcc ? (
+							<AuthBlock setIsHaveAcc={setIsHaveAcc} />
+						) : (
+							<RegisterBlock setIsHaveAcc={setIsHaveAcc} />
+						)}
 					</div>
 				</div>
 			</div>

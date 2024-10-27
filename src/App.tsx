@@ -1,28 +1,41 @@
 import { Route, Routes, useNavigate } from 'react-router-dom'
 import './scss/index.scss'
-import { useAppSelector } from './hooks'
-import { selectCount } from './redux/slices/counterSlice'
 import { useEffect } from 'react'
 import { getToken } from './utils/getToken'
+import { isTokenExpired } from './utils/isTokenExpired '
+import { deleteToken } from './utils/deleteToken'
 import Auth from './pages/Auth'
+import Home from './pages/Home'
+import Header from './components/Header/Header'
+
 
 function App() {
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		const token = getToken()
 
-		if (!token) {
-			navigate('/auth')
+	useEffect(() => {
+		const token = getToken();
+		if (token) {
+			if (isTokenExpired(token)) {
+				navigate('/auth')
+				deleteToken()
+			} else {
+				navigate('/')
+			}
+		} else {
+			navigate('/auth');
 		}
 	}, [])
 
 	return (
 		<>
-			<Routes>
-				<Route path='/' element={<div>sdasd</div>}></Route>
-				<Route path='/auth' element={<Auth />}></Route>
-			</Routes>
+			<Header />
+			<main className='main'>
+				<Routes>
+					<Route path='/' element={<Home />}></Route>
+					<Route path='/auth' element={<Auth />}></Route>
+				</Routes>
+			</main>
 		</>
 	)
 }

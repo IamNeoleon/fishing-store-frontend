@@ -9,7 +9,6 @@
 body {
 	margin: 0;
 	font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
-	line-height: 1.5;
 	font-weight: 400;
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
@@ -32,24 +31,80 @@ h6 {
 	font-weight: normal;
 }
 
-// AuthPage
+.container {
+	max-width: 1100px;
+	padding: 0 15px;
+	margin: 0 auto;
+}
 
-.auth {}
+// AuthPage
 
 .auth__inner {
 	display: flex;
 	min-height: 100vh;
 	justify-content: center;
 	align-items: center;
+	transform-origin: center;
+
 
 	.btn {
 		background-color: #005B45;
 		color: #fff;
-		padding: 10px 15px;
-		font-size: 16px;
-		font-weight: 600;
+		padding: 15px;
+		border-radius: 5px;
+		font-size: 18px;
+		font-weight: 500;
 		border: 1px solid #fff;
 		border: none;
+		cursor: pointer;
+		transition: background-color 0.1s linear;
+
+		&:hover {
+			background-color: #0a4939;
+		}
+	}
+}
+
+.authBlock {
+	background-color: #fff;
+	padding: 15px;
+	border-radius: 10px;
+	border: 1px solid #ccc;
+	width: 450px;
+
+	h1 {
+		text-align: center;
+	}
+
+	.form {
+		padding: 30px 30px 15px;
+		border-radius: 5px;
+		display: flex;
+		flex-direction: column;
+
+		.name {
+			font-size: 18px;
+			font-weight: 500;
+			margin-bottom: 5px;
+		}
+
+		input {
+			width: 100%;
+			padding: 8px 10px;
+			color: inherit;
+			font-size: 18px;
+			margin-bottom: 10px;
+		}
+	}
+}
+
+.authBlock__bottom {
+	text-align: right;
+	font-size: 18px;
+	padding: 0 30px;
+
+	span {
+		text-decoration: underline;
 		cursor: pointer;
 	}
 }
