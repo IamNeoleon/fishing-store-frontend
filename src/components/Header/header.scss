@@ -1,6 +1,6 @@
 .header {
-    padding: 20px 0;
-    background-color: #005B45;
+    padding: 15px 0;
+    background-color: #000;
     color: #fff;
 
     // .header__inner
@@ -12,7 +12,7 @@
     // .header__logo
     &__logo {
         flex: 1 1 auto;
-        font-size: 24px;
+        font-size: 20px;
     }
 
     // .header__icons
@@ -36,7 +36,7 @@
     // .nav__link
     &__link {
         margin-left: 20px;
-        font-size: 18px;
+        font-size: 16px;
 
         &:hover {
             text-decoration: underline;

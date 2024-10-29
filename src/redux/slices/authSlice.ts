@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { TLoginResponse } from '../../@types';
 import { RootState } from '..';
+import { API_URL } from '../../constants';
 
 interface AuthState {
     user: null | { username: string; email: string, isStaff: boolean };

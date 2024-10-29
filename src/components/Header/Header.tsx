@@ -10,7 +10,7 @@ const Header: React.FC<IHeaderProps> = () => {
             <header className="header">
                 <div className="container">
                     <div className="header__inner">
-                        <div className="header__logo">Logo</div>
+                        <div className="header__logo">The Reel Deal</div>
                         <nav className="nav">
                             <a href="#" className="nav__link">Главная</a>
                             <a href="#" className="nav__link">О нас</a>
@@ -20,10 +20,10 @@ const Header: React.FC<IHeaderProps> = () => {
                         <div className="header__profile">
                             <div className="header__icons">
                                 <div className="header__icon">
-                                    <ShoppingCart size={20} />
+                                    <ShoppingCart size={18} />
                                 </div>
                                 <div className="header__icon">
-                                    <CircleUserRound size={20} />
+                                    <CircleUserRound size={18} />
                                 </div>
                             </div>
                         </div>

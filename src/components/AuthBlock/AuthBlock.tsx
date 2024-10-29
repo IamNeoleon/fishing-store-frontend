@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import "./authBlock.scss";
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { login, selectToken, selectUser } from '../../redux/slices/authSlice';
+import { login, selectToken } from '../../redux/slices/authSlice';
 import { useNavigate } from 'react-router-dom';
 import { setTokenToLs } from '../../utils/setTokenToLs';
 

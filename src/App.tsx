@@ -7,6 +7,7 @@ import { deleteToken } from './utils/deleteToken'
 import Auth from './pages/Auth'
 import Home from './pages/Home'
 import Header from './components/Header/Header'
+import Sort from './components/Sort/Sort'
 
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
 	return (
 		<>
 			<Header />
+			<Sort />
 			<main className='main'>
 				<Routes>
 					<Route path='/' element={<Home />}></Route>
