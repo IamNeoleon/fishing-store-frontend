@@ -1,84 +1,137 @@
 .sort {
 
-	// .sort__title
+    // .sort__title
+    &__title {
+        display: flex;
+        align-items: center;
+        font-size: 18px;
 
-	&__title {
-		padding: 20px 0;
-		font-size: 36px;
-		text-align: center;
-	}
 
-	// .sort__inner
+        span {
+            margin-left: 5px;
+        }
+    }
 
-	&__inner {
-		border-top: 1px solid #000;
-		padding: 10px 0;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-	}
+    // .sort__filters
+    &__filters {
+        padding-top: 20px;
+    }
+
+    // .sort__filter
+    &__filter {
+        margin-bottom: 15px;
+
+        h3 {
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+    }
+
+    // .sort__price
+    &__price {}
+
+    // .sort__price-inputs
+    &__price-inputs {
+
+        input {
+            width: 100%;
+            border: 1px solid #ccc;
+            padding: 10px 10px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+
+            &::placeholder {
+                font-size: 14px;
+                font-family: inherit;
+            }
+        }
+
+        input::-webkit-outer-spin-button,
+        input::-webkit-inner-spin-button {
+            /* display: none; <- Crashes Chrome on hover */
+            -webkit-appearance: none;
+            margin: 0;
+            /* <-- Apparently some margin are still there even though it's hidden */
+        }
+    }
+
+    &__order {
+        position: relative;
+        padding-top: 5px;
+        font-size: 14px;
+    }
+
+    &__order-selected {
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        cursor: pointer;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #fff;
+        border-radius: 4px;
+    }
+
+    &__order-dropdown {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        z-index: 10;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &__order-option {
+        padding: 8px 10px;
+        cursor: pointer;
+        transition: background 0.2s;
+        border-bottom: 1px solid #ccc;
+
+        &:hover {
+            background: #f0f0f0;
+        }
+    }
+
+    // .sort__brand
+    &__brands {
+        padding-top: 5px;
+    }
+
+    // .sort__btn
+    &__btn {
+        padding: 10px 0;
+        background-color: #ed7100;
+        color: #fff;
+        text-align: center;
+        border-radius: 5px;
+        font-size: 14px;
+        cursor: pointer;
+        margin-top: 20px;
+        transition: background-color 0.1s linear;
+
+        &:hover {
+            background-color: #703b0a;
+        }
+    }
 }
 
-.container {}
+.brands {
 
-.dropdown {
-	position: relative;
-	display: inline-block;
-	width: 250px;
-	background-color: #fff;
-	border-radius: 2px;
-	border: 1px solid #e0e0e0;
-	// .dropdown__button
+    // .brands__brand
+    &__brand {
+        margin-bottom: 2px;
 
-	&__button {
-		width: 100%;
-		padding: 8px 16px;
-		cursor: pointer;
-		// border: 1px solid #000;
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
+        label {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
 
-		span {
-			padding-bottom: 2px;
-		}
-
-		div {
-			display: flex;
-			justify-content: center;
-			align-items: center;
-
-			&.active {
-				svg {
-					transform: rotate(180deg);
-				}
-			}
-		}
-	}
-
-	// .dropdown__list
-
-	&__list {
-		width: 100%;
-		position: absolute;
-		list-style: none;
-		margin: 0;
-		padding: 0;
-		background: white;
-		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-		border: 1px solid #e0e0e0;
-		padding: 1px;
-	}
-
-	// .dropdown__item
-
-	&__item {
-		padding: 8px 16px;
-		cursor: pointer;
-		border: 1px solid #fff;
-
-		&.active {
-			background-color: #d3e5ff;
-		}
-	}
+            span {
+                margin-left: 2px;
+            }
+        }
+    }
 }

@@ -17,4 +17,19 @@ export type TProduct = {
     updated_at: string,
     image: string,
     category: number,
+    brand: number,
+    brand_name: string
+}
+
+export type TCategory = {
+    id: number,
+    name: string,
+    description: string,
+    parent: null | number,
+    subcategories: []
+}
+
+export type TBrand = {
+    id: number,
+    name: string
 }

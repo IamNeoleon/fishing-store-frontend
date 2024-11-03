@@ -1,23 +1,29 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { RootState } from '..';
-import { TProduct } from '../../@types';
+import { TBrand, TProduct } from '../../@types';
 import { API_URL } from '../../constants';
 
 interface IProductsSlice {
 	products: TProduct[] | [],
+	brands: TBrand[],
 	loading: 'idle' | 'pending' | 'succeeded' | 'failed',
+	params: string,
+	currentCategory: string
 }
 
 const initialState: IProductsSlice = {
 	products: [],
-	loading: 'idle'
+	loading: 'idle',
+	brands: [],
+	params: '',
+	currentCategory: ''
 };
 
 export const getProducts = createAsyncThunk(
 	'api/getProducts',
-	async (token: string) => {
-		const response = await axios.get(`${API_URL}/products/`, {
+	async ({ token, params }: { token: string, params: string }) => {
+		const response = await axios.get<TProduct[]>(`${API_URL}/products/${params}`, {
 			headers: {
 				'Authorization': `Bearer ${token}`
 			}
@@ -27,10 +33,16 @@ export const getProducts = createAsyncThunk(
 	},
 )
 
-const authSlice = createSlice({
-	name: 'auth',
+const products = createSlice({
+	name: 'products',
 	initialState,
 	reducers: {
+		setBrands: (state, action: PayloadAction<TBrand[]>) => {
+			state.brands = action.payload; // Устанавливаем все доступные бренды
+		},
+		addParams: (state, action: PayloadAction<string>) => {
+			state.params = state.params ? state.params + '&' + action.payload : '?' + action.payload;
+		}
 	},
 	extraReducers: (builder) => {
 		builder
@@ -47,5 +59,6 @@ const authSlice = createSlice({
 	},
 });
 
+export const { addParams, setBrands } = products.actions;
 export const selectProducts = (state: RootState) => state.products;
-export default authSlice.reducer;
+export default products.reducer;

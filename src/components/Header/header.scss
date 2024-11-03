@@ -1,7 +1,5 @@
 .header {
-    padding: 15px 0;
-    background-color: #000;
-    color: #fff;
+    color: #000;
 
     // .header__inner
     &__inner {
@@ -9,23 +7,80 @@
         align-items: center;
     }
 
+    // .header__nav
+    &__nav {
+        background-color: #f0f0f0;
+
+        .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 15px;
+        }
+    }
+
+
     // .header__logo
     &__logo {
+        font-size: 24px;
+    }
+
+    // .header__profile
+    &__profile {
+        font-size: 12px;
+
+        span {
+            margin-left: 5px;
+        }
+    }
+
+    // .header__bottom-inner 
+    &__bottom-inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 0;
+    }
+
+    // .header__search
+    &__search {
         flex: 1 1 auto;
-        font-size: 20px;
+        padding: 0 50px 0 20px;
+
+        input {
+            width: 80%;
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            outline: none;
+            font-weight: normal;
+            border-radius: 5px;
+        }
+    }
+
+    // .header__cart
+    &__cart {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 12px;
+
+        svg {
+            margin-right: 5px;
+        }
     }
 
     // .header__icons
     &__icons {
         display: flex;
         align-items: center;
-        padding-left: 20px;
     }
 
     // .header__icon
     &__icon {
-        margin-left: 15px;
-        cursor: pointer;
+        display: flex;
+        align-items: center;
+        margin-left: 10px;
     }
 }
 
@@ -35,8 +90,8 @@
 
     // .nav__link
     &__link {
-        margin-left: 20px;
-        font-size: 16px;
+        margin-right: 20px;
+        font-size: 12px;
 
         &:hover {
             text-decoration: underline;
