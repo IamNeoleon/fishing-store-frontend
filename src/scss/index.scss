@@ -149,7 +149,7 @@ li {
 	// .products__sidebar
 
 	&__sidebar {
-		flex: 0 1 25%;
+		flex: 0 0 250px;
 		padding: 30px;
 		border-radius: 10px;
 		border: 1px solid #e0e0e0;
@@ -159,9 +159,9 @@ li {
 	// .products__items
 
 	&__items {
-		flex: 0 1 75%;
+		flex: 1 1 auto;
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		gap: 20px;
 	}
 }

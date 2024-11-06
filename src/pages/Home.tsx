@@ -7,16 +7,24 @@ import Sort from '../components/Sort/Sort';
 import { TBrand } from '../@types';
 import { API_URL } from '../constants';
 import axios from 'axios';
+import { selectFilters } from '../redux/slices/filterSlice';
 
 interface IHomeProps { }
 
 const Home: React.FC<IHomeProps> = () => {
     const dispatch = useAppDispatch();
-    const { products, loading, params } = useAppSelector(selectProducts);
+    const { products, loading } = useAppSelector(selectProducts);
+    const { category, sort } = useAppSelector(selectFilters);
     const token = getToken();
 
     const fetchProducts = async () => {
         if (token) {
+            let params: string = '';
+            if (category != null) {
+                params = `?${category}&${sort}`;
+            } else {
+                params = sort ? `?${sort}` : '';
+            }
             console.log(params);
             await dispatch(getProducts({ token, params }));
         }
@@ -24,7 +32,7 @@ const Home: React.FC<IHomeProps> = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, [params])
+    }, [category, sort])
 
     useEffect(() => {
         const fetchBrands = async () => {

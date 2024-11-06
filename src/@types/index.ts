@@ -26,7 +26,7 @@ export type TCategory = {
     name: string,
     description: string,
     parent: null | number,
-    subcategories: []
+    subcategories: number[]
 }
 
 export type TBrand = {

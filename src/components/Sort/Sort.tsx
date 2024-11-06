@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { ChevronDown, SlidersHorizontal } from 'lucide-react';
 import './sort.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { addParams, selectProducts } from '../../redux/slices/productsSlice';
+import { selectProducts } from '../../redux/slices/productsSlice';
+import { addSort } from '../../redux/slices/filterSlice';
 
 const Sort: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -34,7 +35,7 @@ const Sort: React.FC = () => {
 		}
 		queryParams.push(`ordering=${sortOrder === 'asc' ? 'price' : '-price'}`);
 		const queryString = queryParams.length > 0 ? `${queryParams.join('&')}` : '';
-		dispatch(addParams(queryString));
+		dispatch(addSort(queryString));
 	};
 
 	const handleSortOrderChange = (order: string) => {

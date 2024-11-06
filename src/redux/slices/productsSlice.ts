@@ -8,16 +8,12 @@ interface IProductsSlice {
 	products: TProduct[] | [],
 	brands: TBrand[],
 	loading: 'idle' | 'pending' | 'succeeded' | 'failed',
-	params: string,
-	currentCategory: string
 }
 
 const initialState: IProductsSlice = {
 	products: [],
 	loading: 'idle',
 	brands: [],
-	params: '',
-	currentCategory: ''
 };
 
 export const getProducts = createAsyncThunk(
@@ -39,9 +35,6 @@ const products = createSlice({
 	reducers: {
 		setBrands: (state, action: PayloadAction<TBrand[]>) => {
 			state.brands = action.payload; // Устанавливаем все доступные бренды
-		},
-		addParams: (state, action: PayloadAction<string>) => {
-			state.params = state.params ? state.params + '&' + action.payload : '?' + action.payload;
 		}
 	},
 	extraReducers: (builder) => {
@@ -59,6 +52,6 @@ const products = createSlice({
 	},
 });
 
-export const { addParams, setBrands } = products.actions;
+export const { setBrands } = products.actions;
 export const selectProducts = (state: RootState) => state.products;
 export default products.reducer;
