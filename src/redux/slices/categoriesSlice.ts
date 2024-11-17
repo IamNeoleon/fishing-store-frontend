@@ -10,7 +10,7 @@ interface CategoriesState {
     categories: TCategory[],
     parentCategories: TCategory[],
     subcategories: TCategory[],
-    currentCateogory: number | null
+    currentCategory: string | null
 }
 
 // Define the initial state using that type
@@ -18,7 +18,7 @@ const initialState: CategoriesState = {
     categories: [],
     parentCategories: [],
     subcategories: [],
-    currentCateogory: null
+    currentCategory: null
 } satisfies CategoriesState as CategoriesState
 
 export const getCategories = createAsyncThunk(
@@ -39,7 +39,7 @@ export const categoriesSlice = createSlice({
     initialState,
     reducers: {
         setCategory: (state, action) => {
-            state.currentCateogory = action.payload
+            state.currentCategory = action.payload;
         }
     },
     extraReducers: (builder) => {

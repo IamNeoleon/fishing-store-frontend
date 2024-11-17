@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router-dom'
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
 import './scss/index.scss'
 import { useEffect } from 'react'
 import { getToken } from './utils/getToken'
@@ -6,14 +6,13 @@ import { isTokenExpired } from './utils/isTokenExpired '
 import { deleteToken } from './utils/deleteToken'
 import Auth from './pages/Auth'
 import Home from './pages/Home'
-import Header from './components/Header/Header'
-import Sort from './components/Sort/Sort'
-import Categories from './components/Categories/Categories'
+import Cart from './pages/Cart'
+import MainLayout from './MainLayout'
+import Admin from './pages/Admin'
 
 
 function App() {
 	const navigate = useNavigate();
-
 
 	useEffect(() => {
 		const token = getToken();
@@ -21,8 +20,6 @@ function App() {
 			if (isTokenExpired(token)) {
 				navigate('/auth')
 				deleteToken()
-			} else {
-				navigate('/')
 			}
 		} else {
 			navigate('/auth');
@@ -31,14 +28,14 @@ function App() {
 
 	return (
 		<>
-			<Header />
-			<Categories />
-			<main className='main'>
-				<Routes>
-					<Route path='/' element={<Home />}></Route>
-					<Route path='/auth' element={<Auth />}></Route>
-				</Routes>
-			</main>
+			<Routes>
+				<Route path="/auth" element={<Auth />} />
+				<Route path="/" element={<MainLayout />}>
+					<Route index element={<Home />} />
+					<Route path="cart" element={<Cart />} />
+				</Route>
+				<Route path="/admin" element={<Admin />} />
+			</Routes>
 		</>
 	)
 }

@@ -10,12 +10,13 @@
     // .header__nav
     &__nav {
         background-color: #f0f0f0;
+        border-bottom: 1px solid #ccc;
 
         .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 15px;
+            padding: 15px 15px;
         }
     }
 
@@ -27,10 +28,22 @@
 
     // .header__profile
     &__profile {
-        font-size: 12px;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
 
+        .logout,
         span {
             margin-left: 5px;
+        }
+
+        .logout {
+            cursor: pointer;
+            color: #e57373;
+
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
 
@@ -81,6 +94,27 @@
         display: flex;
         align-items: center;
         margin-left: 10px;
+
+        a {
+            position: relative;
+
+            span {
+                position: absolute;
+                bottom: -5px;
+                right: -10px;
+                display: block;
+                width: 20px;
+                height: 20px;
+                border-radius: 50%;
+                background-color: #ed7100;
+
+                font-size: 12px;
+                color: #fff;
+                font-weight: 700;
+                text-align: center;
+                line-height: 20px;
+            }
+        }
     }
 }
 
@@ -91,7 +125,7 @@
     // .nav__link
     &__link {
         margin-right: 20px;
-        font-size: 12px;
+        font-size: 14px;
 
         &:hover {
             text-decoration: underline;

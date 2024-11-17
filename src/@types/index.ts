@@ -33,3 +33,19 @@ export type TBrand = {
     id: number,
     name: string
 }
+
+export type TCartItemReq = {
+    product_id: number,
+    quantity: number
+}
+
+export interface ICartItem {
+    id: number,
+    product: {
+        id: number,
+        name: string,
+        price: number,
+        image: string
+    }
+    quantity: number
+}

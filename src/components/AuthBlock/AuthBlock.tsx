@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./authBlock.scss";
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { login, selectToken } from '../../redux/slices/authSlice';
@@ -12,10 +12,16 @@ interface IAuthBlockProps {
 const AuthBlock: React.FC<IAuthBlockProps> = ({ setIsHaveAcc }) => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
+	const [username, setUsername] = useState<string>('');
+	const [password, setPassword] = useState<string>('');
 	const token = useAppSelector(selectToken);
 
 	const loginUser = async () => {
-		await dispatch(login({ username: "testuser123123123", password: "TestPassword123" }))
+		if (username && password) {
+			await dispatch(login({ username: username, password: password }))
+		} else {
+			alert('Введите нужные данные')
+		}
 	}
 
 	useEffect(() => {
@@ -32,11 +38,11 @@ const AuthBlock: React.FC<IAuthBlockProps> = ({ setIsHaveAcc }) => {
 					<h1>Авторизация</h1>
 					<div>
 						<div className='name'>Логин</div>
-						<input type="text" />
+						<input value={username} onChange={(e) => setUsername(e.target.value)} type="text" />
 					</div>
 					<div>
 						<div className='name'>Пароль</div>
-						<input type="text" />
+						<input value={password} onChange={(e) => setPassword(e.target.value)} type="text" />
 					</div>
 					<button className='btn' onClick={loginUser}>Вход</button>
 					<div className="authBlock__bottom">

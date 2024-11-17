@@ -79,5 +79,11 @@
 		&:hover {
 			background-color: #703b0a;
 		}
+
+		&[disabled] {
+			cursor: default;
+			background-color: #ccc;
+			color: #eee;
+		}
 	}
 }

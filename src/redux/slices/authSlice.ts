@@ -4,6 +4,10 @@ import { TLoginResponse } from '../../@types';
 import { RootState } from '..';
 import { API_URL } from '../../constants';
 
+const saveToLocalStorage = (key: string, value: any) => {
+    localStorage.setItem(key, JSON.stringify(value));
+};
+
 interface AuthState {
     user: null | { username: string; email: string, isStaff: boolean };
     token: string | null;
@@ -38,6 +42,8 @@ const authSlice = createSlice({
             state.user = null;
             state.token = null;
             state.token_refresh = null;
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
         },
     },
     extraReducers: (builder) => {
@@ -51,6 +57,7 @@ const authSlice = createSlice({
                 state.user = { username: action.payload.username, email: action.payload.email, isStaff: action.payload.is_staff };
                 state.token = action.payload.access;
                 state.token_refresh = action.payload.refresh;
+                saveToLocalStorage('user', state.user);
             })
             .addCase(login.rejected, (state, action) => {
                 state.loading = false;

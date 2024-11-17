@@ -1,0 +1,87 @@
+.admin__products {
+    padding-top: 50px;
+}
+
+.header-admin {
+    background-color: #ed7100;
+
+    // .header-admin__inner
+    &__inner {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #fff;
+        padding: 15px 0;
+    }
+
+    // .header-admin__logo
+    &__logo {
+        span {
+            &:first-child {
+                font-size: 26px;
+                margin-right: 2px;
+            }
+
+            &:last-child {
+                color: #eee;
+                font-size: 13px;
+            }
+        }
+    }
+
+    // .header-admin__nav
+    &__nav {}
+
+    // .header-admin__link
+    &__link {
+        &:hover {
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+.admin-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: left;
+
+    th,
+    td {
+        border: 1px solid #ddd;
+        padding: 10px;
+    }
+
+    th {
+        background-color: #f4f4f4;
+    }
+
+    .btn-edit {
+        background-color: #4caf50;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        margin-right: 5px;
+        transition: background-color 0.1s linear;
+
+        &:hover {
+            background-color: #324233;
+        }
+    }
+
+    .btn-delete {
+        background-color: #f44336;
+        color: white;
+        border: none;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: background-color 0.1s linear;
+
+        &:hover {
+            background-color: #742620;
+        }
+    }
+}

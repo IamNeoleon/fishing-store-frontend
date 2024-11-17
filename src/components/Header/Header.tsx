@@ -1,11 +1,32 @@
-import React from 'react';
-import headerLogo from '../../assets/header-logo.png'
+import React, { useEffect, useState } from 'react';
 import { ShoppingCart, CircleUserRound, Heart } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom';
 import './header.scss'
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { selectCart } from '../../redux/slices/cartSlice';
+import { logout, } from '../../redux/slices/authSlice';
+import { getUser } from '../../utils/getUser';
 
 interface IHeaderProps { }
 
 const Header: React.FC<IHeaderProps> = () => {
+    const [countCartItems, setCountCartItems] = useState<number>(0);
+    const dispatch = useAppDispatch();
+    const navigate = useNavigate();
+    const { cartItems } = useAppSelector(selectCart)
+    const user = getUser();
+    console.log(user);
+
+
+    const handleLogout = () => {
+        dispatch(logout());
+        navigate('/auth')
+    }
+
+    useEffect(() => {
+        setCountCartItems(cartItems.length)
+    }, [cartItems])
+
     return (
         <>
             <header className="header">
@@ -19,7 +40,10 @@ const Header: React.FC<IHeaderProps> = () => {
                         <div className="header__profile">
                             <div className="header__icon">
                                 <CircleUserRound size={18} />
-                                <span>Войти</span>
+                                <span>{user ? user.username : 'Войти'}</span>
+                            </div>
+                            <div onClick={handleLogout} className="logout">
+                                Выйти
                             </div>
                         </div>
                     </div>
@@ -37,15 +61,16 @@ const Header: React.FC<IHeaderProps> = () => {
                                     <Heart size={22} />
                                 </div>
                                 <div className="header__icon">
-                                    <ShoppingCart size={22} />
+                                    <Link to='/cart'>
+                                        <ShoppingCart size={22} />
+                                        {
+                                            countCartItems > 0 && <span>{countCartItems}</span>
+                                        }
+                                    </Link>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div className="header__inner">
-
-
                 </div>
             </header>
         </>
