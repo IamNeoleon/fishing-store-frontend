@@ -75,9 +75,9 @@ li {
 
 
 	.btn {
-		background-color: #005B45;
+		background-color: #ed7100;
 		color: #fff;
-		padding: 15px;
+		padding: 10px;
 		border-radius: 5px;
 		font-size: 18px;
 		font-weight: 500;
@@ -87,7 +87,7 @@ li {
 		transition: background-color 0.1s linear;
 
 		&:hover {
-			background-color: #0a4939;
+			background-color: #6e3a0a;
 		}
 	}
 }
@@ -128,7 +128,7 @@ li {
 .authBlock__bottom {
 	text-align: right;
 	font-size: 18px;
-	padding: 0 30px;
+	margin-top: 5px;
 
 	span {
 		text-decoration: underline;

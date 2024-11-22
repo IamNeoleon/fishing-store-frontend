@@ -42,7 +42,7 @@ const AuthBlock: React.FC<IAuthBlockProps> = ({ setIsHaveAcc }) => {
 					</div>
 					<div>
 						<div className='name'>Пароль</div>
-						<input value={password} onChange={(e) => setPassword(e.target.value)} type="text" />
+						<input value={password} onChange={(e) => setPassword(e.target.value)} type="password" />
 					</div>
 					<button className='btn' onClick={loginUser}>Вход</button>
 					<div className="authBlock__bottom">

@@ -36,6 +36,7 @@ const Header: React.FC<IHeaderProps> = () => {
                             <a href="#" className="nav__link">Все товары</a>
                             <a href="#" className="nav__link">О нас</a>
                             <a href="#" className="nav__link">Доставка и оплата</a>
+                            <a href="#" className="nav__link">Админ-панель</a>
                         </nav>
                         <div className="header__profile">
                             <div className="header__icon">

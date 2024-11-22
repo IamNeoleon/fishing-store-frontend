@@ -1,5 +1,4 @@
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom'
-import './scss/index.scss'
+import { Route, Routes, useNavigate } from 'react-router-dom'
 import { useEffect } from 'react'
 import { getToken } from './utils/getToken'
 import { isTokenExpired } from './utils/isTokenExpired '
@@ -7,8 +6,12 @@ import { deleteToken } from './utils/deleteToken'
 import Auth from './pages/Auth'
 import Home from './pages/Home'
 import Cart from './pages/Cart'
-import MainLayout from './MainLayout'
+import MainLayout from './layouts/MainLayout'
+import AdminLayout from './layouts/AdminLayout'
 import Admin from './pages/Admin'
+import AdminEditProduct from './pages/AdminEditProduct'
+import './scss/index.scss'
+import CreateProductForm from './components/CreateProductForm/CreateProductForm'
 
 
 function App() {
@@ -34,7 +37,11 @@ function App() {
 					<Route index element={<Home />} />
 					<Route path="cart" element={<Cart />} />
 				</Route>
-				<Route path="/admin" element={<Admin />} />
+				<Route path='/admin' element={<AdminLayout />}>
+					<Route index element={<Admin />} />
+					<Route path='product/:id' element={<AdminEditProduct />} />
+					<Route path='create_product' element={<CreateProductForm />} />
+				</Route>
 			</Routes>
 		</>
 	)

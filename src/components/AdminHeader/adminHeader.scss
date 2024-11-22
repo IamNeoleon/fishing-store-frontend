@@ -1,0 +1,38 @@
+.header-admin {
+	background-color: #ed7100;
+
+	// .header-admin__inner
+	&__inner {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		color: #fff;
+		padding: 10px 0;
+	}
+
+	// .header-admin__logo
+	&__logo {
+		span {
+			&:first-child {
+				font-size: 24px;
+				margin-right: 2px;
+			}
+
+			&:last-child {
+				color: #eee;
+				font-size: 13px;
+			}
+		}
+	}
+
+	// .header-admin__nav
+	&__nav {}
+
+	// .header-admin__link
+	&__link {
+		&:hover {
+			text-decoration: underline;
+			cursor: pointer;
+		}
+	}
+}
