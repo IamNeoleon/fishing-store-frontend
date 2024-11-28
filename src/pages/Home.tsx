@@ -10,6 +10,7 @@ import axios from 'axios';
 import { selectFilters } from '../redux/slices/filterSlice';
 import { getCart, selectCart } from '../redux/slices/cartSlice';
 import { selectCategories } from '../redux/slices/categoriesSlice';
+import { Link } from 'react-router-dom';
 
 interface IHomeProps { }
 
@@ -17,18 +18,20 @@ const Home: React.FC<IHomeProps> = () => {
     const dispatch = useAppDispatch();
     const { products, loading } = useAppSelector(selectProducts);
     const { lastAddedProduct } = useAppSelector(selectCart);
-    const { category, sort } = useAppSelector(selectFilters);
+    const { category, sort, search } = useAppSelector(selectFilters);
     const { currentCategory } = useAppSelector(selectCategories);
     const token = getToken();
 
     const fetchProducts = async () => {
         if (token) {
             let params: string = '';
-            if (category != null) {
-                params = `?${category}&${sort}`;
-            } else {
-                params = sort ? `?${sort}` : '';
-            }
+            const queryParams = new URLSearchParams();
+            if (category) queryParams.append('category', category.toString());
+            if (sort) queryParams.append('sort', sort);
+            if (search) queryParams.append('search', search);
+
+            params = queryParams.toString() ? `?${queryParams.toString()}` : '';
+
             await dispatch(getProducts({ token, params }));
         }
     }
@@ -41,7 +44,7 @@ const Home: React.FC<IHomeProps> = () => {
 
     useEffect(() => {
         fetchProducts();
-    }, [category, sort])
+    }, [category, sort, search])
 
     useEffect(() => {
         const fetchBrands = async () => {
@@ -74,7 +77,9 @@ const Home: React.FC<IHomeProps> = () => {
                             </aside>
                             <div className="products__items">
                                 {products.map(product =>
-                                    <Card key={product.id} id={product.id} name={product.name} price={product.price} imgUrl={product.image} available={product.available} />
+                                    <Link key={product.id} to={`product/${product.id}`}>
+                                        <Card id={product.id} name={product.name} price={product.price} imgUrl={product.image} available={product.available} />
+                                    </Link>
                                 )}
                             </div>
                         </div>

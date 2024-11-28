@@ -1,31 +1,45 @@
-import React, { useEffect, useState } from 'react';
-import { ShoppingCart, CircleUserRound, Heart } from 'lucide-react'
+import React, { useEffect, useState, useCallback } from 'react';
+import { ShoppingCart, CircleUserRound, Heart } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
-import './header.scss'
+import './header.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectCart } from '../../redux/slices/cartSlice';
-import { logout, } from '../../redux/slices/authSlice';
-import { getUser } from '../../utils/getUser';
+import { logout } from '../../redux/slices/authSlice';
+import { getUser } from '../../utils/getUser.ts';
+import { addSearch } from '../../redux/slices/filterSlice.ts';
+import debounce from 'lodash/debounce';
 
 interface IHeaderProps { }
 
 const Header: React.FC<IHeaderProps> = () => {
     const [countCartItems, setCountCartItems] = useState<number>(0);
+    const [value, setValue] = useState<string>('');
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
-    const { cartItems } = useAppSelector(selectCart)
+    const { cartItems } = useAppSelector(selectCart);
     const user = getUser();
-    console.log(user);
-
 
     const handleLogout = () => {
         dispatch(logout());
-        navigate('/auth')
-    }
+        navigate('/auth');
+    };
+
+    const debouncedSetSearchValue = useCallback(
+        debounce((searchValue: string) => {
+            dispatch(addSearch(searchValue));
+        }, 1000),
+        []
+    );
 
     useEffect(() => {
-        setCountCartItems(cartItems.length)
-    }, [cartItems])
+        debouncedSetSearchValue(value);
+
+        return () => debouncedSetSearchValue.cancel();
+    }, [value, debouncedSetSearchValue]);
+
+    useEffect(() => {
+        setCountCartItems(cartItems.length);
+    }, [cartItems]);
 
     return (
         <>
@@ -33,10 +47,10 @@ const Header: React.FC<IHeaderProps> = () => {
                 <div className="header__nav">
                     <div className="container">
                         <nav className="nav">
-                            <a href="#" className="nav__link">Все товары</a>
+                            <Link to='/' className="nav__link">Все товары</Link>
                             <a href="#" className="nav__link">О нас</a>
                             <a href="#" className="nav__link">Доставка и оплата</a>
-                            <a href="#" className="nav__link">Админ-панель</a>
+                            {user.isStaff && <Link to='/admin' className='nav__link'>Админ-панель</Link>}
                         </nav>
                         <div className="header__profile">
                             <div className="header__icon">
@@ -52,10 +66,14 @@ const Header: React.FC<IHeaderProps> = () => {
                 <div className="header__bottom">
                     <div className="container">
                         <div className="header__bottom-inner">
-                            <div className="header__logo">The Reel Deal
-                            </div>
+                            <div className="header__logo">The Reel Deal</div>
                             <div className="header__search">
-                                <input type="text" placeholder='Поиск товаров' />
+                                <input
+                                    value={value}
+                                    onChange={(e) => setValue(e.target.value)}
+                                    type="text"
+                                    placeholder='Поиск товаров'
+                                />
                             </div>
                             <div className="header__icons">
                                 <div className="header__icon">

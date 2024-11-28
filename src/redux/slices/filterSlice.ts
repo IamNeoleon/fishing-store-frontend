@@ -4,12 +4,14 @@ import type { RootState } from '../index'
 
 interface FilterState {
 	category: number | null,
-	sort: string
+	sort: string,
+	search: string
 }
 
 const initialState: FilterState = {
 	category: null,
-	sort: ''
+	sort: '',
+	search: ''
 } satisfies FilterState as FilterState
 
 export const filterSlice = createSlice({
@@ -22,10 +24,13 @@ export const filterSlice = createSlice({
 		addSort: (state, action) => {
 			state.sort = action.payload;
 		},
+		addSearch: (state, action) => {
+			state.search = action.payload;
+		},
 	},
 })
 
-export const { addCategory, addSort } = filterSlice.actions;
+export const { addCategory, addSort, addSearch } = filterSlice.actions;
 
 export const selectFilters = (state: RootState) => state.filter;
 

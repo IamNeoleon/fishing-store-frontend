@@ -10,8 +10,10 @@ import MainLayout from './layouts/MainLayout'
 import AdminLayout from './layouts/AdminLayout'
 import Admin from './pages/Admin'
 import AdminEditProduct from './pages/AdminEditProduct'
+import Product from './pages/Product'
 import './scss/index.scss'
 import CreateProductForm from './components/CreateProductForm/CreateProductForm'
+
 
 
 function App() {
@@ -36,6 +38,7 @@ function App() {
 				<Route path="/" element={<MainLayout />}>
 					<Route index element={<Home />} />
 					<Route path="cart" element={<Cart />} />
+					<Route path="product/:id" element={<Product />} />
 				</Route>
 				<Route path='/admin' element={<AdminLayout />}>
 					<Route index element={<Admin />} />

@@ -20,10 +20,9 @@ const Categories: React.FC<ICategoriesProps> = () => {
     }
 
     const onClickCategory = (id: number) => {
-        const queryParam = `category=${id}`;
+        const queryParam = `${id}`;
         const category = subcategories.find(subcategory => subcategory.id === id);
         dispatch(addCategory(queryParam))
-        console.log(category?.name);
         dispatch(setCategory(category?.name))
     }
 
