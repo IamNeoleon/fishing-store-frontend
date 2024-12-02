@@ -1,16 +1,18 @@
 import React, { useEffect } from 'react';
-import Card from '../components/Card/Card';
+import axios from 'axios';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getProducts, selectProducts, setBrands } from '../redux/slices/productsSlice';
-import { getToken } from '../utils/getToken';
-import Sort from '../components/Sort/Sort';
-import { TBrand } from '../@types';
-import { API_URL } from '../constants';
-import axios from 'axios';
 import { selectFilters } from '../redux/slices/filterSlice';
 import { getCart, selectCart } from '../redux/slices/cartSlice';
 import { selectCategories } from '../redux/slices/categoriesSlice';
-import { Link } from 'react-router-dom';
+import { getToken } from '../utils/getToken';
+import { API_URL } from '../constants';
+import { TBrand } from '../@types';
+import Sort from '../components/Sort/Sort';
+import Card from '../components/Card/Card';
+import CardSkeleton from '../components/Card/CardSkeleton';
+
+
 
 interface IHomeProps { }
 
@@ -21,17 +23,17 @@ const Home: React.FC<IHomeProps> = () => {
     const { category, sort, search } = useAppSelector(selectFilters);
     const { currentCategory } = useAppSelector(selectCategories);
     const token = getToken();
+    const arrSkeleton = Array.from({ length: 10 }, (_, i) => i + 1);
 
     const fetchProducts = async () => {
         if (token) {
             let params: string = '';
             const queryParams = new URLSearchParams();
             if (category) queryParams.append('category', category.toString());
-            if (sort) queryParams.append('sort', sort);
             if (search) queryParams.append('search', search);
-
-            params = queryParams.toString() ? `?${queryParams.toString()}` : '';
-
+            const sortParam = sort ? sort : '';
+            console.log(sort);
+            params = queryParams.toString() ? `?${queryParams.toString()}&${sortParam}` : `?${sortParam}`;
             await dispatch(getProducts({ token, params }));
         }
     }
@@ -76,11 +78,19 @@ const Home: React.FC<IHomeProps> = () => {
                                 <Sort />
                             </aside>
                             <div className="products__items">
-                                {products.map(product =>
-                                    <Link key={product.id} to={`product/${product.id}`}>
-                                        <Card id={product.id} name={product.name} price={product.price} imgUrl={product.image} available={product.available} />
-                                    </Link>
-                                )}
+                                {loading == 'pending'
+                                    ? arrSkeleton.map((_, index) => <CardSkeleton key={index} />)
+                                    : products.map((product) => (
+                                        <Card
+                                            key={product.id}
+                                            id={product.id}
+                                            name={product.name}
+                                            price={product.price}
+                                            imgUrl={product.image}
+                                            available={product.available}
+                                        />
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>

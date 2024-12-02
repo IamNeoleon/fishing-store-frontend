@@ -29,12 +29,15 @@ const Product: React.FC = () => {
 			<div className="product-page">
 				<div className="container">
 					<ProductBlock
+						id={product.id}
 						title={product.name}
 						caterogy={category ? category.name : 'Неизвестно'}
 						description={product.description}
 						brand={product.brand_name}
 						price={product.price}
 						imgUrl={product.image}
+						stock={product.stock}
+						avialable={product.available}
 					/>
 				</div>
 			</div>

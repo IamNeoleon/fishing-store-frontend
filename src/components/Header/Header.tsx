@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectCart } from '../../redux/slices/cartSlice';
 import { logout } from '../../redux/slices/authSlice';
 import { getUser } from '../../utils/getUser.ts';
-import { addSearch } from '../../redux/slices/filterSlice.ts';
+import { addSearch, resetFilter } from '../../redux/slices/filterSlice.ts';
 import debounce from 'lodash/debounce';
 
 interface IHeaderProps { }
@@ -31,6 +31,11 @@ const Header: React.FC<IHeaderProps> = () => {
         []
     );
 
+    const goToHome = () => {
+        navigate('/')
+        dispatch(resetFilter());
+    }
+
     useEffect(() => {
         debouncedSetSearchValue(value);
 
@@ -47,7 +52,7 @@ const Header: React.FC<IHeaderProps> = () => {
                 <div className="header__nav">
                     <div className="container">
                         <nav className="nav">
-                            <Link to='/' className="nav__link">Все товары</Link>
+                            <a onClick={goToHome} className="nav__link">Все товары</a>
                             <a href="#" className="nav__link">О нас</a>
                             <a href="#" className="nav__link">Доставка и оплата</a>
                             {user.isStaff && <Link to='/admin' className='nav__link'>Админ-панель</Link>}
