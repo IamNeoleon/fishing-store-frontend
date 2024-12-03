@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectCart } from '../../redux/slices/cartSlice';
 import { logout } from '../../redux/slices/authSlice';
 import { getUser } from '../../utils/getUser.ts';
-import { addSearch, resetFilter } from '../../redux/slices/filterSlice.ts';
+import { addSearch, resetAllFilters } from '../../redux/slices/filterSlice.ts';
 import debounce from 'lodash/debounce';
 
 interface IHeaderProps { }
@@ -18,6 +18,7 @@ const Header: React.FC<IHeaderProps> = () => {
     const navigate = useNavigate();
     const { cartItems } = useAppSelector(selectCart);
     const user = getUser();
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
 
     const handleLogout = () => {
         dispatch(logout());
@@ -33,7 +34,7 @@ const Header: React.FC<IHeaderProps> = () => {
 
     const goToHome = () => {
         navigate('/')
-        dispatch(resetFilter());
+        dispatch(resetAllFilters());
     }
 
     useEffect(() => {
@@ -46,6 +47,12 @@ const Header: React.FC<IHeaderProps> = () => {
         setCountCartItems(cartItems.length);
     }, [cartItems]);
 
+    useEffect(() => {
+        if (user) {
+            setIsAdmin(user.isStaff);
+        }
+    }, [user])
+
     return (
         <>
             <header className="header">
@@ -55,7 +62,8 @@ const Header: React.FC<IHeaderProps> = () => {
                             <a onClick={goToHome} className="nav__link">Все товары</a>
                             <a href="#" className="nav__link">О нас</a>
                             <a href="#" className="nav__link">Доставка и оплата</a>
-                            {user.isStaff && <Link to='/admin' className='nav__link'>Админ-панель</Link>}
+                            {isAdmin && <Link to='/admin' className='nav__link'>Админ-панель</Link>}
+                            <Link to='/orders' className='nav__link'>Мои заказы</Link>
                         </nav>
                         <div className="header__profile">
                             <div className="header__icon">
@@ -82,11 +90,8 @@ const Header: React.FC<IHeaderProps> = () => {
                             </div>
                             <div className="header__icons">
                                 <div className="header__icon">
-                                    <Heart size={22} />
-                                </div>
-                                <div className="header__icon">
                                     <Link to='/cart'>
-                                        <ShoppingCart size={22} />
+                                        <ShoppingCart size={26} />
                                         {
                                             countCartItems > 0 && <span>{countCartItems}</span>
                                         }

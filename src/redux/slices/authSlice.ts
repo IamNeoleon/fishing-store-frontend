@@ -14,6 +14,7 @@ interface AuthState {
     token_refresh: string | null;
     loading: boolean;
     error: string | null;
+    errorRegistered: string | null
 }
 
 const initialState: AuthState = {
@@ -22,6 +23,7 @@ const initialState: AuthState = {
     token_refresh: null,
     loading: false,
     error: null,
+    errorRegistered: null
 };
 
 export const login = createAsyncThunk('auth/login', async (credentials: { username: string; password: string }) => {
@@ -29,8 +31,8 @@ export const login = createAsyncThunk('auth/login', async (credentials: { userna
     return response.data;
 });
 
-export const register = createAsyncThunk('auth/register', async (data: { email: string; username: string; password: string }) => {
-    const response = await axios.post('/api/register', data);
+export const register = createAsyncThunk('auth/register', async (data: { username: string; email: string; password: string }) => {
+    const response = await axios.post(`${API_URL}/register/`, data);
     return response.data;
 });
 
@@ -63,23 +65,14 @@ const authSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message || 'Ошибка при авторизации';
             })
-            .addCase(register.pending, (state) => {
-                state.loading = true;
-                state.error = null;
-            })
-            .addCase(register.fulfilled, (state, action: PayloadAction<{ user: AuthState["user"]; token: string }>) => {
-                state.loading = false;
-                state.user = action.payload.user;
-                state.token = action.payload.token;
-            })
             .addCase(register.rejected, (state, action) => {
-                state.loading = false;
-                state.error = action.error.message || 'Ошибка при регистрации';
-            });
+                state.errorRegistered = `Ошибка при регистрации: ${action.error.message}`;
+            })
     },
 });
 
 export const selectUser = (state: RootState) => state.auth.user;
 export const selectToken = (state: RootState) => state.auth.token;
+export const selectAuth = (state: RootState) => state.auth;
 export const { logout } = authSlice.actions;
 export default authSlice.reducer;

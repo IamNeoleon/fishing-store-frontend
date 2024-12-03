@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { API_URL } from '../constants';
 import { getToken } from '../utils/getToken';
+import { TProduct } from '../@types';
 
 const AdminEditProduct: React.FC = () => {
 	const { id } = useParams();
@@ -21,12 +22,19 @@ const AdminEditProduct: React.FC = () => {
 
 	const fetchProduct = async () => {
 		try {
-			const response = await axios.get(`${API_URL}/products/${id}/`, {
+			const response = await axios.get<TProduct>(`${API_URL}/products/${id}/`, {
 				headers: {
 					'Authorization': `Bearer ${token}`,
 				},
 			});
-			setProduct(response.data);
+			const receivedProduct = {
+				name: response.data.name,
+				description: response.data.description,
+				price: response.data.price,
+				stock: response.data.stock,
+				available: response.data.available
+			}
+			setProduct(receivedProduct);
 		} catch (err) {
 			setError('Ошибка при загрузке данных о продукте');
 		} finally {

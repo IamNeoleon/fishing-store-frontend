@@ -77,8 +77,8 @@ const Admin: React.FC = () => {
                                         <td>{product.id}</td>
                                         <td>{product.name}</td>
                                         <td>{Math.floor(product.price)}₸</td>
-                                        <td>{product.stock}</td>
                                         <td>{product.category}</td>
+                                        <td>{product.stock}</td>
                                         <td>
                                             <button onClick={() => editProduct(product.id)} className="btn-edit">Редактировать</button>
                                             <button onClick={() => deleteProduct(product.id)} className="btn-delete">Удалить</button>

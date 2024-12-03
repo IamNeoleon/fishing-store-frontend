@@ -36,7 +36,7 @@ const Cart: React.FC<ICartProps> = () => {
                                         )}
                                     </div>
                                     <div className="cart__bottom">
-
+                                        <Link to='/create_order' className='cart__btn'>Перейти к оформлению</Link>
                                     </div>
                                 </>
                             ) : (

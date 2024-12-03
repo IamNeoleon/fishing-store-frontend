@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getToken } from '../../utils/getToken';
-import { addItem, selectCart } from '../../redux/slices/cartSlice';
+import { addItem, getCart, selectCart } from '../../redux/slices/cartSlice';
 import { TCartItemReq } from '../../@types';
 import './ProductBlock.scss';
 
@@ -17,23 +17,32 @@ interface IProductBlockProps {
 	avialable: boolean
 }
 
-const ProductBlock: React.FC<IProductBlockProps> = ({ id, title, description, caterogy, brand, price, imgUrl, stock, avialable }) => {
+const ProductBlock: React.FC<IProductBlockProps> = ({ id, title, description, caterogy, brand, price, imgUrl, stock }) => {
 	const [count, setCount] = useState<number>(1);
 	const dispatch = useAppDispatch();
 	const { cartItems } = useAppSelector(selectCart);
 	const token = getToken();
 	const [isAdded, setIsAdded] = useState(false);
 
-	const onAddProduct = () => {
+	const fetchCart = () => {
+		if (token) {
+			dispatch(getCart(token));
+		}
+	}
+
+	const onAddProduct = async () => {
 		const data: TCartItemReq = {
 			product_id: id,
 			quantity: count
 		}
 		if (token && data) {
-			dispatch(addItem({ token, data }))
+			await dispatch(addItem({ token, data }))
 			setIsAdded(true);
+			fetchCart();
 		}
 	}
+
+
 
 	useEffect(() => {
 		const isInCart = cartItems.some(item => item.product.id === id);

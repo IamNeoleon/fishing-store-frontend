@@ -1,7 +1,9 @@
 .cart-item {
     display: flex;
-    margin-top: 30px;
     position: relative;
+    border-bottom: 1px solid #ccc;
+    padding: 20px 0;
+
 
     // .cart-item__info
     &__info {
@@ -79,8 +81,8 @@
     &__delete {
         display: block;
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 20px;
+        right: -10px;
         cursor: pointer;
         transition: color 0.1s linear;
         display: flex;

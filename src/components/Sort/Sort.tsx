@@ -3,7 +3,7 @@ import { ChevronDown, SlidersHorizontal } from 'lucide-react';
 import './sort.scss';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { selectProducts } from '../../redux/slices/productsSlice';
-import { addSort } from '../../redux/slices/filterSlice';
+import { addSort, resetSort } from '../../redux/slices/filterSlice';
 
 const Sort: React.FC = () => {
 	const dispatch = useAppDispatch();
@@ -37,6 +37,14 @@ const Sort: React.FC = () => {
 		const queryString = queryParams.length > 0 ? `${queryParams.join('&')}` : '';
 		dispatch(addSort(queryString));
 	};
+
+	const handleResetFilters = () => {
+		dispatch(resetSort());
+		setSelectedBrands([]);
+		setMinPrice('');
+		setMaxPrice('')
+		setSortOrder('asc')
+	}
 
 	const handleSortOrderChange = (order: string) => {
 		setSortOrder(order);
@@ -110,6 +118,9 @@ const Sort: React.FC = () => {
 			</div>
 			<div className="sort__btn" onClick={applyFilter}>
 				Применить фильтр
+			</div>
+			<div className="sort__btn" onClick={handleResetFilters}>
+				Сбросить фильтр
 			</div>
 		</div>
 	);

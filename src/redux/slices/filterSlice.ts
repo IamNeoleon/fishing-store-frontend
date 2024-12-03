@@ -27,15 +27,18 @@ export const filterSlice = createSlice({
 		addSearch: (state, action) => {
 			state.search = action.payload;
 		},
-		resetFilter: (state) => {
-			state.category = null;
+		resetSort: (state) => {
 			state.sort = ''
-			state.search = '';
+		},
+		resetAllFilters: (state) => {
+			state.category = null
+			state.search = ''
+			state.sort = ''
 		}
 	},
 })
 
-export const { addCategory, addSort, addSearch, resetFilter } = filterSlice.actions;
+export const { addCategory, addSort, addSearch, resetSort, resetAllFilters } = filterSlice.actions;
 
 export const selectFilters = (state: RootState) => state.filter;
 

@@ -115,6 +115,10 @@
         &:hover {
             background-color: #703b0a;
         }
+
+        &:last-child {
+            margin-top: 10px;
+        }
     }
 }
 
